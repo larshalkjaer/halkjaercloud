@@ -2,9 +2,9 @@ const router = require("express").Router();
 let ToDo = require('../models/todo.model');
 
 router.route('/').get((req, res) => {
-    ToDo.find().
-        then(todos => res.json(todos)).
-        catch(err => res.status(400).json(`Error: ${err}`))
+    ToDo.find().sort('completed -createdAt')
+        .then(todos => res.json(todos))
+        .catch(err => res.status(400).json(`Error: ${err}`))
 });
 
 router.route('/add').post((req, res) => {
